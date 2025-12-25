@@ -1,6 +1,7 @@
 import React from 'react';
 import ImageSlider from '../Component/ImageSlider';
 import PopularGames from '../Component/PopularGames';
+import NewsletterSection from '../Component/NewsLetter';
 
 const Home = () => {
     return (
@@ -20,6 +21,10 @@ const Home = () => {
 
             <div className='w-full mx-auto mt-4'>
                 <PopularGames/>
+            </div>
+
+            <div className='w-full mx-auto mt-4'>
+                <NewsletterSection/>
             </div>
 
 
