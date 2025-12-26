@@ -1,18 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import logoimg from "../assets/logo.png";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth } from "../firebase/firebase.config";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const [user , setUser] = useState(null);
+
+  const googleProvider = new GoogleAuthProvider();
+
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
+    signInWithEmailAndPassword(auth, email, password)
+    .then((res) => {
+        console.log(res.user);
+        toast.success("Login Successful");
+        setUser(res.user);
+        console.log("Logged in user:", user);
+    }).catch((err) => {
+        console.log(err.message);
+        toast.error(err.message);
+    });
   };
 
   const handleGoogleLogin = () => {
     console.log("Google login clicked");
+    signInWithPopup(auth, googleProvider)
+    .then((res) => {
+        console.log(res.user);
+        toast.success("Google Login Successful");
+        setUser(res.user);
+        console.log("Logged in user:", user);
+    }).catch((err) => {
+        console.log(err.message);
+        toast.error(err.message);
+    });
   };
 
   return (
