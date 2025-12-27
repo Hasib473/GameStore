@@ -5,7 +5,7 @@ import NewsletterSection from '../Component/NewsLetter';
 
 const Home = () => {
     return (
-        <div className='w-full mx-auto p-4 bg-gray-100'>
+        <div className='w-full mx-auto p-4 bg-purple-100'>
 
             <div className='text-center mb-10 mt-6'>
                 <h1 className="text-3xl font-bold mt-3">Welcome to <span className='text-purple-400'>GameStore</span></h1>

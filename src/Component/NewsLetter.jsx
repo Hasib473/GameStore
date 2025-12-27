@@ -12,7 +12,7 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="relative bg-gradient-to-r from-purple-400 to-indigo-400 py-20 rounded-2xl">
+    <section className=" w=10/12 mx-auto relative bg-gradient-to-r from-purple-400 to-indigo-400 py-20 rounded-2xl">
       <div className="max-w-6xl mx-auto px-6 text-center text-white">
         <h2 className="text-2xl md:text-3xl font-extrabold mb-4 drop-shadow-lg">
           Join Our Newsletter

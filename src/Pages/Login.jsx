@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import logoimg from "../assets/logo.png";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import { toast } from "react-toastify";
+import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
-  const [user , setUser] = useState(null);
+  const  {user, setUser, singinwithPopupFunction} =useContext(AuthContext);
 
-  const googleProvider = new GoogleAuthProvider();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     console.log("Google login clicked");
-    signInWithPopup(auth, googleProvider)
+    singinwithPopupFunction()
     .then((res) => {
         console.log(res.user);
         toast.success("Google Login Successful");
@@ -43,7 +43,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-purple-100">
       {/* Card animation */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
