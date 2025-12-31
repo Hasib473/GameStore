@@ -1,160 +1,131 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { motion } from "framer-motion";
-import logoimg from "../assets/logo.png";
-import { GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase.config";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
+
+import logoimg from "../assets/logo.png";
+import { auth } from "../firebase/firebase.config";
 import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
-  const  {user, setUser, singinwithPopupFunction,setPasswordResetFuction} =useContext(AuthContext);
+  const { setUser, singinwithPopupFunction } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-const navigate =useNavigate();
+  const emailRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+
+  // Email Password Login
   const handleLogin = (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+
     signInWithEmailAndPassword(auth, email, password)
-    .then((res) => {
-      if(!res.user.emailVerified){
-        toast.error("Your email is not verified. Please verify your email before logging in.");
-        return;
-      }
-      navigate("/");
-        console.log(res.user);
-        toast.success("Login Successful");
+      .then((res) => {
+        if (!res.user.emailVerified) {
+          toast.error("Please verify your email first");
+          setLoading(false);
+          return;
+        }
+
         setUser(res.user);
-        console.log("Logged in user:", user);
-    }).catch((err) => {
-        console.log(err.message);
+        toast.success("Login Successful");
+        navigate("/");
+      })
+      .catch((err) => {
         toast.error(err.message);
-    });
+      })
+      .finally(() => setLoading(false));
   };
-  const emailref = useRef(null);
+
+  // 🔁 Forgot Password
   const handleReset = () => {
-    const email = emailref.current.value;
+    const email = emailRef.current.value;
+
     if (!email) {
-      toast.error("Please enter your email for password reset");
+      toast.error("Please enter your email first");
       return;
     }
-    setPasswordResetFuction(email)
-    .then(() => {
-        toast.success("Password reset email sent");
-    }).catch((err) => {
-        console.log(err.message);
-        toast.error(err.message);
+
+    navigate("/forgot-password", {
+      state: { email }
     });
+  };
 
-  }
-
+  // Google Login
   const handleGoogleLogin = () => {
-    console.log("Google login clicked");
     singinwithPopupFunction()
-    .then((res) => {
-        console.log(res.user);
-        toast.success("Google Login Successful");
+      .then((res) => {
         setUser(res.user);
-        console.log("Logged in user:", user);
-    }).catch((err) => {
-        console.log(err.message);
-        toast.error(err.message);
-    });
+        toast.success("Google Login Successful");
+        navigate("/");
+      })
+      .catch((err) => toast.error(err.message));
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-purple-100">
-      {/* Card animation */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
         className="w-full max-w-md bg-white p-6 rounded-lg shadow"
       >
-        {/* Logo animation */}
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="flex justify-center items-center mb-2"
-        >
-          <img className="w-24 h-16" src={logoimg} alt="Game Logo" />
-        </motion.div>
+        <div className="flex justify-center mb-4">
+          <img src={logoimg} className="w-24" alt="logo" />
+        </div>
 
-        <h2 className="text-2xl font-bold text-center mb-6">Login Please</h2>
+        <h2 className="text-2xl font-bold text-center mb-6">
+          Login to Your Account
+        </h2>
 
         <form onSubmit={handleLogin} className="space-y-4">
-          {/* Email */}
-          <div>
-            <label className="block text-sm font-medium">Email</label>
-            <input
-              type="email"
-              ref={emailref}
-              name="email"
-              required
-              className="w-full mt-1 px-3 py-2 border rounded 
-                         focus:outline-none focus:ring-2 focus:ring-blue-400
-                         transition"
-              placeholder="Enter your email"
-            />
-          </div>
+          <input
+            ref={emailRef}
+            type="email"
+            name="email"
+            required
+            placeholder="Email"
+            className="input input-bordered w-full"
+          />
 
-          {/* Password */}
-          <div>
-            <label className="block text-sm font-medium">Password</label>
-            <input
-              type="password"
-              name="password"
-              required
-              className="w-full mt-1 px-3 py-2 border rounded 
-                         focus:outline-none focus:ring-2 focus:ring-blue-400
-                         transition"
-              placeholder="Enter your password"
-            />
-          </div>
+          <input
+            type="password"
+            name="password"
+            required
+            placeholder="Password"
+            className="input input-bordered w-full"
+          />
 
-          {/* Login Button */}
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+          <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+            disabled={loading}
+            className="btn btn-primary w-full"
           >
-            Login
-          </motion.button>
+            {loading ? "Logging in..." : "Login"}
+          </button>
 
-          {/* Forgot password */}
-          <div className="text-left mt-2">
-            <Link
-              onClick={handleReset}
-            
-              className="text-sm text-blue-600 hover:underline"
-            >
-              Forgot your password?
-            </Link>
-          </div>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="text-sm text-blue-600 hover:underline"
+          >
+            Forgot your password?
+          </button>
         </form>
 
-        {/* Google Login */}
-        <motion.button
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+        <button
           onClick={handleGoogleLogin}
-          className="w-full mt-4 border py-2 rounded flex items-center justify-center gap-2 hover:bg-gray-100"
+          className="btn btn-outline w-full mt-4"
         >
-          <img
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            alt="google"
-            className="w-5"
-          />
-          Continue with Google
-        </motion.button>
+         <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="google" className="w-5" /> Continue with Google
+        </button>
 
-        {/* Register */}
         <p className="text-center mt-4 text-sm">
-          Don&apos;t have an account?{" "}
-          <Link to="/signup" className="text-blue-600 hover:underline">
+          Don’t have an account?{" "}
+          <Link to="/signup" className="text-blue-600 underline">
             Register
           </Link>
         </p>
