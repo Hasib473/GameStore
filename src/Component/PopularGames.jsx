@@ -5,7 +5,7 @@ const PopularGames = () => {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    fetch("/public/Info.json")
+    fetch("/Info.json")
       .then((res) => res.json())
       .then((data) => {
         const sortedGames = data

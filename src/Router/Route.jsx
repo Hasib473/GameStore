@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
       {
         path: '/apps',
         loader: async () => {
-          const res = await fetch('public/Info.json');
+          const res = await fetch('/Info.json');
           const data = await res.json();
           return data;
         },
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'gamedetails/:id',
-        loader: () => fetch('public/Info.json'),
+        loader: () => fetch('/Info.json'),
         Component: GameDetails
       },
       {
