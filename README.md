@@ -49,5 +49,4 @@ GameHub is a modern single-page web application built with **React** that allows
 
 --
 
-## 📁 Project Structure
 
