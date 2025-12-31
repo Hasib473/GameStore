@@ -6,6 +6,7 @@ import About from "../Pages/About";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
 import GameDetails from "../Pages/GameDetails";
+import NotFound from "../Pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
           path:'gamedetails/:id',
           loader: () => fetch('../../public/Info.json'),
           Component: GameDetails
+        },
+        {
+          path:'/*',
+          Component: NotFound
         }
     ]
   },
