@@ -1,16 +1,55 @@
-# React + Vite
+# 🎮 GameHub – Game Listing & Authentication App
+# Live Link : https://gamestore-bang.surge.sh
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+GameHub is a modern single-page web application built with **React** that allows users to explore games, view detailed information, and securely authenticate using **Firebase**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
+- 🌐 Live Site: https://your-live-link-here
+- 💻 GitHub Repo: https://github.com/your-username/your-repo-name
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+### 🔐 Authentication
+- Email & Password Login
+- Google Sign-In
+- Email Verification
+- Forgot Password (Reset via Gmail)
+- Private / Protected Routes
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🎮 Game Features
+- Game listing from JSON data
+- Popular games based on ratings
+- Dynamic game details page
+- Rating-based sorting
+
+### 👤 User Profile
+- User profile image in Navbar
+- Update profile (Name & Photo URL)
+- Private Update Profile route
+
+### 🎨 UI & UX
+- Fully responsive design
+- Smooth animations with Framer Motion
+- Clean UI using Tailwind CSS & DaisyUI
+- Custom 404 Not Found page
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, React Router
+- **Styling:** Tailwind CSS, DaisyUI
+- **Authentication:** Firebase Authentication
+- **State Management:** Context API
+- **Animation:** Framer Motion
+- **Build Tool:** Vite
+- **Deployment:** Netlify / Surge
+
+--
+
+## 📁 Project Structure
+
