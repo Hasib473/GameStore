@@ -81,7 +81,7 @@ const GameDetails = () => {
             {description}
           </p>
 
-          {/* 🔘 Buttons */}
+          
           <div className="card-actions justify-start mt-6 gap-4">
             <a
               href={downloadLink}
@@ -89,11 +89,11 @@ const GameDetails = () => {
               rel="noopener noreferrer"
               className="btn btn-primary"
             >
-              ⬇ Download
+               Download
             </a>
 
             <Link to="/" className="btn btn-outline">
-              ⬅ Back
+               Back
             </Link>
           </div>
         </div>

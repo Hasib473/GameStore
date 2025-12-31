@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 const PopularGames = () => {
   const [games, setGames] = useState([]);
@@ -23,30 +24,33 @@ const PopularGames = () => {
 
       {/* Responsive Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {games.map((game) => (
-          <div
-            key={game.id}
-            className="bg-white rounded-lg shadow hover:shadow-lg transition"
-          >
-            <img
-              src={game.coverPhoto}
-              alt={game.title}
-              className="w-full h-48 object-cover rounded-xl p-4 "
-            />
+    {games.map((game) => (
+  <Link
+    key={game.id}
+    to={`/gamedetails/${game.id}`}
+    className="block"
+  >
+    <div className="bg-white rounded-lg shadow hover:shadow-lg transition">
+      <img
+        src={game.coverPhoto}
+        alt={game.title}
+        className="w-full h-48 object-cover rounded-xl p-4"
+      />
 
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">{game.title}</h3>
+      <div className="p-4">
+        <h3 className="text-lg font-semibold">{game.title}</h3>
 
-              <p className="text-sm text-gray-500 mt-1">
-                Category: {game.category}
-              </p>
+        <p className="text-sm text-gray-500 mt-1">
+          Category: {game.category}
+        </p>
 
-              <p className="mt-2 font-medium">
-                ⭐ Rating: {game.ratings}
-              </p>
-            </div>
-          </div>
-        ))}
+        <p className="mt-2 font-medium">
+          ⭐ Rating: {game.ratings}
+        </p>
+      </div>
+    </div>
+  </Link>
+))}
       </div>
     </div>
   );
