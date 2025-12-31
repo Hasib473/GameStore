@@ -17,6 +17,11 @@ export const router = createBrowserRouter([
         },
         {
             path:'/apps',
+            loader : async () => {
+              const res =await fetch('../../public/Info.json');
+              const data = await res.json();
+              return data;
+            },
             Component: Apps
         },
         {
