@@ -6,7 +6,6 @@ const NotFound = () => {
     <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
       <div className="text-center max-w-lg">
 
-        {/* 🔢 Error Code */}
         <h1 className="text-8xl font-extrabold text-purple-500 mb-4">
           404
         </h1>

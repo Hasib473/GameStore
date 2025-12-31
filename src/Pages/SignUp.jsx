@@ -9,7 +9,7 @@ import { AuthContext } from "../Context/AuthContext";
 
 const Register = () => {
 
-    const { createUserWithEmailAndPasswordFunction } = useContext(AuthContext);
+    const { createUserWithEmailAndPasswordFunction ,sendUserVerificationFunction } = useContext(AuthContext);
     const navigate = useNavigate();
     const text =
         "Create your account and start your journey with us today.";
@@ -53,6 +53,12 @@ const Register = () => {
         console.log(name, email, photoURL, password);
         // firebase registration logic 
         createUserWithEmailAndPasswordFunction(email, password).then((res) => {
+            sendUserVerificationFunction().then(() => {
+                toast.success("Verification email sent. Please check your inbox.");
+            }).catch((err) => {
+                console.log(err.message);
+            });
+         
         console.log(res.user);
         toast.success("User Registered Successfully");
         navigate('/login');

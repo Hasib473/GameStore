@@ -24,7 +24,7 @@ const Navbar = () => {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                             <li><a>Home</a></li>
                             <li><a>Apps</a></li>
-                            <li><a>About Us</a></li>
+                            
                         </ul>
                     </div>
 
@@ -40,7 +40,7 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1 space-x-4">
                         <ActiveLink to="/">Home</ActiveLink>
                         <ActiveLink to="/apps">Apps</ActiveLink>
-                        <ActiveLink to="/about">About Us</ActiveLink>
+                       
                     </ul>
                 </div>
 

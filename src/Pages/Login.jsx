@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link } from "react-router";
+import React, { useContext, useRef } from "react";
+import { Link, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import logoimg from "../assets/logo.png";
 import { GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
@@ -8,9 +8,9 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
-  const  {user, setUser, singinwithPopupFunction} =useContext(AuthContext);
+  const  {user, setUser, singinwithPopupFunction,setPasswordResetFuction} =useContext(AuthContext);
 
-
+const navigate =useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -18,6 +18,11 @@ const Login = () => {
     console.log(email, password);
     signInWithEmailAndPassword(auth, email, password)
     .then((res) => {
+      if(!res.user.emailVerified){
+        toast.error("Your email is not verified. Please verify your email before logging in.");
+        return;
+      }
+      navigate("/");
         console.log(res.user);
         toast.success("Login Successful");
         setUser(res.user);
@@ -27,6 +32,22 @@ const Login = () => {
         toast.error(err.message);
     });
   };
+  const emailref = useRef(null);
+  const handleReset = () => {
+    const email = emailref.current.value;
+    if (!email) {
+      toast.error("Please enter your email for password reset");
+      return;
+    }
+    setPasswordResetFuction(email)
+    .then(() => {
+        toast.success("Password reset email sent");
+    }).catch((err) => {
+        console.log(err.message);
+        toast.error(err.message);
+    });
+
+  }
 
   const handleGoogleLogin = () => {
     console.log("Google login clicked");
@@ -69,6 +90,7 @@ const Login = () => {
             <label className="block text-sm font-medium">Email</label>
             <input
               type="email"
+              ref={emailref}
               name="email"
               required
               className="w-full mt-1 px-3 py-2 border rounded 
@@ -105,7 +127,8 @@ const Login = () => {
           {/* Forgot password */}
           <div className="text-left mt-2">
             <Link
-              to="/forgot-password"
+              onClick={handleReset}
+            
               className="text-sm text-blue-600 hover:underline"
             >
               Forgot your password?
