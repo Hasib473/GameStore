@@ -1,13 +1,11 @@
 # 🎮 GameHub – Game Listing & Authentication App
-# Live Link : https://gamestore-bang.surge.sh
 
 GameHub is a modern single-page web application built with **React** that allows users to explore games, view detailed information, and securely authenticate using **Firebase**.
 
 ---
 
 ## 🚀 Live Demo
-- 🌐 Live Site: https://your-live-link-here
-- 💻 GitHub Repo: https://github.com/your-username/your-repo-name
+- 🌐 Live Site: https://gamestore-bang.surge.sh/
 
 ---
 
