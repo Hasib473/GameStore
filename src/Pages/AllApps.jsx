@@ -1,13 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const AllApps = ({data}) => {
+    const {id} =data;
     return (
        
       <div >
-        
+         <Link to={`/gamedetails/${id}`}>
           <div
-            key={data?.id || index}
-            className="border rounded-lg p-4 shadow"
+            key={data?.id }
+            className="border-0 rounded-lg p-4 shadow"
           >
             <img
               src={data?.coverPhoto || "https://i.ibb.co/2kRZyq0/user.png"}
@@ -30,6 +32,7 @@ const AllApps = ({data}) => {
               Price: {data?.price || "Free"}
             </p>
           </div>
+          </Link>
       </div>
 
     );

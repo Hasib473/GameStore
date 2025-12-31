@@ -5,6 +5,7 @@ import Apps from "../Pages/Apps";
 import About from "../Pages/About";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
+import GameDetails from "../Pages/GameDetails";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,11 @@ export const router = createBrowserRouter([
         {
           path:'/signup',
           Component: SignUp
+        },
+        {
+          path:'gamedetails/:id',
+          loader: () => fetch('../../public/Info.json'),
+          Component: GameDetails
         }
     ]
   },
